@@ -1,6 +1,8 @@
 package table
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type StrArr struct {
 	Arr []string
@@ -56,20 +58,55 @@ func alignLeft(text string, size int) string {
 	return text + suffix
 }
 
-func (a StrArr) PrintStrArr(align rune) {
+func fillWithTimes(char string, size int) string {
+	fill := ""
+	for i := 0; i < size; i++ {
+		fill += fmt.Sprintf("%c", char[0])
+	}
+	return fill
+}
+
+func getFirstNotEmptyChar(text string) string {
+	for _, v := range text {
+		if fmt.Sprintf("%c", v) != " " {
+			return fmt.Sprintf("%c", v)
+		}
+	}
+	return " "
+}
+
+func (a StrArr) PrintStrArr(align string) {
 	margin := a.getLongestString()
 	lengths := a.getEachItemLength()
 	for k, v := range a.Arr {
 		switch align {
-		case 'R':
+		case "R":
 			fmt.Printf("%s\n", alignRight(v, margin-lengths[k]))
-		case 'L':
+		default:
 			fmt.Printf("%s\n", alignLeft(v, margin-lengths[k]))
 		}
 	}
 }
 
-func (t StrTable) PrintStrTable(align rune, gap string) {
+func (t StrTable) PrintStrTable(align string, gapChar string, gapLength int) {
+	gapChar = getFirstNotEmptyChar(gapChar)
+
+	if gapLength < 1 {
+		gapLength = 1
+	} else if gapLength > 3 {
+		gapLength = 3
+	}
+
+	gap := ""
+	switch gapLength {
+	case 1:
+		gap = " "
+	case 2:
+		gap = gapChar + " "
+	default:
+		gap = " " + gapChar + " "
+	}
+
 	marginArr := make([]int, len(t.ArrArr))
 	for k := range marginArr {
 		marginArr[k] = t.ArrArr[k].getLongestString()
@@ -82,13 +119,30 @@ func (t StrTable) PrintStrTable(align rune, gap string) {
 
 	numItems := t.ArrArr[:][0].getArrayLength()
 
+	firstLine := ""
+	betweenColumns := ""
+	switch len(gap) {
+	case 1:
+		betweenColumns += "+"
+	case 2:
+		betweenColumns += "+-"
+	case 3:
+		betweenColumns += "-+-"
+	}
+	for k := range marginArr {
+		firstLine += fmt.Sprint(fillWithTimes("-", marginArr[k]))
+		if k != len(t.ArrArr)-1 {
+			firstLine += betweenColumns
+		}
+	}
+	fmt.Println(firstLine)
+
 	for i := 0; i < numItems; i++ {
 		line := ""
 		for k, v := range t.ArrArr {
-			switch align {
-			case 'R':
+			if align == "R" {
 				line += alignRight(v.Arr[i], marginArr[k]-lengthsArr[k][i])
-			case 'L':
+			} else {
 				line += alignLeft(v.Arr[i], marginArr[k]-lengthsArr[k][i])
 			}
 			if k != len(t.ArrArr)-1 {
