@@ -40,7 +40,7 @@ func (a StrArr) getArrayLength() int {
 	return len(a.Arr)
 }
 
-func addMarginLeft(text string, size int) string {
+func alignRight(text string, size int) string {
 	prefix := ""
 	for i := 0; i < size; i++ {
 		prefix += " "
@@ -48,7 +48,7 @@ func addMarginLeft(text string, size int) string {
 	return prefix + text
 }
 
-func addMarginRight(text string, size int) string {
+func alignLeft(text string, size int) string {
 	suffix := ""
 	for i := 0; i < size; i++ {
 		suffix += " "
@@ -56,15 +56,20 @@ func addMarginRight(text string, size int) string {
 	return text + suffix
 }
 
-func (a StrArr) PrintStrArr() {
+func (a StrArr) PrintStrArr(align rune) {
 	margin := a.getLongestString()
 	lengths := a.getEachItemLength()
 	for k, v := range a.Arr {
-		fmt.Printf("%s\n", addMarginLeft(v, margin-lengths[k]))
+		switch align {
+		case 'R':
+			fmt.Printf("%s\n", alignRight(v, margin-lengths[k]))
+		case 'L':
+			fmt.Printf("%s\n", alignLeft(v, margin-lengths[k]))
+		}
 	}
 }
 
-func (t StrTable) PrintStrTable(gap string, align rune) {
+func (t StrTable) PrintStrTable(align rune, gap string) {
 	marginArr := make([]int, len(t.ArrArr))
 	for k := range marginArr {
 		marginArr[k] = t.ArrArr[k].getLongestString()
@@ -82,10 +87,10 @@ func (t StrTable) PrintStrTable(gap string, align rune) {
 		for k, v := range t.ArrArr {
 			switch align {
 			case 'R':
-				line += fmt.Sprintf("%s%s", addMarginRight(
+				line += fmt.Sprintf("%s%s", alignRight(
 					v.Arr[i], marginArr[k]-lengthsArr[k][i]), gap)
 			case 'L':
-				line += fmt.Sprintf("%s%s", addMarginLeft(
+				line += fmt.Sprintf("%s%s", alignLeft(
 					v.Arr[i], marginArr[k]-lengthsArr[k][i]), gap)
 			}
 		}
