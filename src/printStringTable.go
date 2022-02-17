@@ -87,11 +87,12 @@ func (t StrTable) PrintStrTable(align rune, gap string) {
 		for k, v := range t.ArrArr {
 			switch align {
 			case 'R':
-				line += fmt.Sprintf("%s%s", alignRight(
-					v.Arr[i], marginArr[k]-lengthsArr[k][i]), gap)
+				line += alignRight(v.Arr[i], marginArr[k]-lengthsArr[k][i])
 			case 'L':
-				line += fmt.Sprintf("%s%s", alignLeft(
-					v.Arr[i], marginArr[k]-lengthsArr[k][i]), gap)
+				line += alignLeft(v.Arr[i], marginArr[k]-lengthsArr[k][i])
+			}
+			if k != len(t.ArrArr)-1 {
+				line += gap
 			}
 		}
 		fmt.Println(line)
