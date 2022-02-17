@@ -59,7 +59,15 @@ func main() {
 			*NumberMap3,
 		},
 	})
-	numberMapArray.PrintStrTable('L', " | ")
+	numberMapArray.PrintStrTable("L", "|", 0)
 	fmt.Println()
-	numberMapArray.PrintStrTable('R', " | ")
+	numberMapArray.PrintStrTable("L", " ", 0)
+	fmt.Println()
+	numberMapArray.PrintStrTable("L", "|", 2)
+	fmt.Println()
+	numberMapArray.PrintStrTable("L", " ", 2)
+	fmt.Println()
+	numberMapArray.PrintStrTable("L", "|", 4)
+	fmt.Println()
+	numberMapArray.PrintStrTable("L", " ", 4)
 }
