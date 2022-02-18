@@ -35,19 +35,20 @@ func NewStrTable(t StrTable) *StrTable {
 }
 
 func alignRight(text string, size int) string {
-	prefix := ""
-	for i := 0; i < size; i++ {
-		prefix += " "
-	}
+	prefix := fillWithTimes(" ", size)
 	return prefix + text
 }
 
 func alignLeft(text string, size int) string {
-	suffix := ""
-	for i := 0; i < size; i++ {
-		suffix += " "
-	}
+	suffix := fillWithTimes(" ", size)
 	return text + suffix
+}
+
+func alignCenter(text string, size int) string {
+	pLen := size / 2
+	prefix := fillWithTimes(" ", pLen)
+	suffix := fillWithTimes(" ", size-pLen)
+	return prefix + text + suffix
 }
 
 func fillWithTimes(char string, size int) string {
@@ -96,6 +97,8 @@ func (a StrArr) PrintStrArr(i Interval, al Align) {
 		switch al.Position {
 		case "R":
 			fmt.Printf("%s\n", alignRight(v, margin-lengths[k]))
+		case "C":
+			fmt.Printf("%s\n", alignCenter(v, margin-lengths[k]))
 		default:
 			fmt.Printf("%s\n", alignLeft(v, margin-lengths[k]))
 		}
@@ -170,6 +173,8 @@ func (t StrTable) printTableBody(i Interval, al Align, gap string) {
 			v.Arr = v.Arr[i.Start:i.End]
 			if al.Position == "R" {
 				line += alignRight(v.Arr[j], marginArr[k]-lengthsArr[k][j])
+			} else if al.Position == "C" {
+				line += alignCenter(v.Arr[j], marginArr[k]-lengthsArr[k][j])
 			} else {
 				line += alignLeft(v.Arr[j], marginArr[k]-lengthsArr[k][j])
 			}
