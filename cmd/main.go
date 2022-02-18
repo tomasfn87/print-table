@@ -56,6 +56,7 @@ func main() {
 			*NumberMap3,
 		},
 	})
+
 	// #1 - passing blank fields
 	fmt.Printf("#1 PrintStrTable: no arguments\n")
 	fmt.Println("  *  Interval{},")

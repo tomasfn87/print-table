@@ -62,10 +62,11 @@ func Menu() {
 	fmt.Println()
 
 	intervalStartInput := ""
-	fmt.Println("(from 0, first value, to 8, last value) or ENTER for default 0")
+	fmt.Println("(from 0 to 8 for last value) or ENTER for default 0")
 	fmt.Printf("Start to print from element: ")
 	fmt.Scanf("%s", &intervalStartInput)
 	intervalStart, _ := strconv.Atoi(intervalStartInput)
+
 	if intervalStart > 8 {
 		intervalStart = 8
 	} else if intervalStart < 0 {
@@ -74,7 +75,7 @@ func Menu() {
 
 	fmt.Println()
 	intervalEndInput := ""
-	fmt.Println("(from 1, second value, to 9, last value) or ENTER for default 9")
+	fmt.Println("(from 1 to 9 for last value) or ENTER for default 9")
 	fmt.Printf("Finish printing at element: ")
 	fmt.Scanf("%s", &intervalEndInput)
 	intervalEnd, _ := strconv.Atoi(intervalEndInput)
@@ -83,13 +84,13 @@ func Menu() {
 		intervalEnd++
 	}
 
-	if intervalEnd <= 0 || intervalEnd > 9 {
+	if intervalEnd <= 0 || intervalEnd > 9 || intervalEnd < intervalStart {
 		intervalEnd = 9
 	}
 
 	fmt.Println()
 	alignInput := ""
-	fmt.Println("(R = right) or ENTER for default Left alignment")
+	fmt.Println("(R or C) {right, center} or ENTER for default Left alignment")
 	fmt.Printf("Alignment: ")
 	fmt.Scanf("%s", &alignInput)
 
@@ -101,7 +102,7 @@ func Menu() {
 
 	fmt.Println()
 	gapLengthInput := ""
-	fmt.Println("Spaces between columns (1, 2 or 3) or ENTER for 1")
+	fmt.Println("Length of gap between columns (1, 2 or 3) or ENTER for 1")
 	fmt.Printf("Gap length: ")
 	fmt.Scanf("%s", &gapLengthInput)
 	gapLength, _ := strconv.Atoi(gapLengthInput)
