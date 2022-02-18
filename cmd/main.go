@@ -49,25 +49,47 @@ func main() {
 	}
 	NumberMap3 := table.NewStrArr(table.StrArr{Arr: numberMap3})
 
-	// NumberMap1.PrintStrArr()
-	// NumberMap2.PrintStrArr()
-	// NumberMap3.PrintStrArr()
-	numberMapArray := table.NewStrTable(table.StrTable{
+	NumberMapArray := table.NewStrTable(table.StrTable{
 		ArrArr: []table.StrArr{
 			*NumberMap1,
 			*NumberMap2,
 			*NumberMap3,
 		},
 	})
-	numberMapArray.PrintStrTable("L", "|", 0)
+	// #1 - passing blank fields
+	fmt.Printf("#1 PrintStrTable: no arguments\n")
+	fmt.Println("  *  Interval{},")
+	fmt.Println("  *  Align{},")
+	fmt.Println("  *  Gap{}")
 	fmt.Println()
-	numberMapArray.PrintStrTable("L", " ", 0)
+	NumberMapArray.PrintStrTable(
+		table.Interval{},
+		table.Align{},
+		table.Gap{},
+	)
+	// #2 - passing the same values and if all fields are blank
+	fmt.Printf("\n#2 PrintStrTable: arguments cloning #1's behavior:\n")
+	fmt.Println("  *  Interval{ Start: 0, End: 0 },")
+	fmt.Println("  *  Align{ Position: \"\" },")
+	fmt.Println("  *  Gap{ Char: \"\", Length: 0 }")
 	fmt.Println()
-	numberMapArray.PrintStrTable("L", "|", 2)
+	NumberMapArray.PrintStrTable(
+		table.Interval{Start: 0, End: 0},
+		table.Align{Position: ""},
+		table.Gap{Char: "|", Length: 0},
+	)
+	// #1 and #2 produce the same output
+
+	// #3 - passing other values
+	fmt.Printf("\n#3 PrintStrTable: other arguments:\n")
+	fmt.Println("  *  Interval{ Start: 1, End: 8 },")
+	fmt.Println("  *  Align{ Position: \"R\" },")
+	fmt.Println("  *  Gap{ Char: \"|\", Length: 3 }")
 	fmt.Println()
-	numberMapArray.PrintStrTable("L", " ", 2)
-	fmt.Println()
-	numberMapArray.PrintStrTable("L", "|", 4)
-	fmt.Println()
-	numberMapArray.PrintStrTable("L", " ", 4)
+	NumberMapArray.PrintStrTable(
+		table.Interval{Start: 1, End: 8},
+		table.Align{Position: "R"},
+		table.Gap{Char: "|", Length: 3},
+	)
+	// #3 is a lil' bit different
 }
