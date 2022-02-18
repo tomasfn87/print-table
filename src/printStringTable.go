@@ -34,14 +34,20 @@ func NewStrTable(t StrTable) *StrTable {
 	return &StrTable{ArrArr: t.ArrArr}
 }
 
+func fillWithTimes(char string, size int) string {
+	fill := ""
+	for i := 0; i < size; i++ {
+		fill += fmt.Sprintf("%c", char[0])
+	}
+	return fill
+}
+
 func alignRight(text string, size int) string {
-	prefix := fillWithTimes(" ", size)
-	return prefix + text
+	return fillWithTimes(" ", size) + text
 }
 
 func alignLeft(text string, size int) string {
-	suffix := fillWithTimes(" ", size)
-	return text + suffix
+	return text + fillWithTimes(" ", size)
 }
 
 func alignCenter(text string, size int) string {
@@ -49,14 +55,6 @@ func alignCenter(text string, size int) string {
 	prefix := fillWithTimes(" ", pLen)
 	suffix := fillWithTimes(" ", size-pLen)
 	return prefix + text + suffix
-}
-
-func fillWithTimes(char string, size int) string {
-	fill := ""
-	for i := 0; i < size; i++ {
-		fill += fmt.Sprintf("%c", char[0])
-	}
-	return fill
 }
 
 func getFirstNotEmptyChar(text string) string {
@@ -118,7 +116,11 @@ func (t StrTable) getGapBetweenColumns(g Gap) string {
 	case 1:
 		gap = " "
 	case 2:
-		gap = g.Char + " "
+		if g.Char == " " {
+			gap = " " + g.Char
+		} else {
+			gap = g.Char + " "
+		}
 	default:
 		gap = " " + g.Char + " "
 	}
@@ -148,7 +150,11 @@ func (t StrTable) printTableFirstLine(i Interval, gap string) {
 	case 1:
 		betweenColumns += "+"
 	case 2:
-		betweenColumns += "+-"
+		if gap == "  " {
+			betweenColumns += "-+"
+		} else {
+			betweenColumns += "+-"
+		}
 	case 3:
 		betweenColumns += "-+-"
 	}
