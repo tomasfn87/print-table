@@ -64,21 +64,39 @@ func main() {
 	fmt.Println("  *  Interval{},")
 	fmt.Println("  *  Align{},")
 	fmt.Println("  *  Gap{}")
+	fmt.Println("  *  Mark{}")
 	fmt.Println()
 	NumberMapArray2.PrintTitledStrTable(
 		table.Interval{},
 		table.Align{},
 		table.Gap{},
+		table.Mark{},
 	)
 
 	fmt.Printf("\n#5 PrintTitledStrTable:\n")
+	fmt.Println("  *  Interval{Start: 0, End: 0},")
+	fmt.Println("  *  Align{ Position: \"R\" },")
+	fmt.Println("  *  Gap{Char: \"|\", Length: 3 },")
+	fmt.Println("  *  Mark{Lines: 2}")
+	fmt.Println()
+	NumberMapArray2.PrintTitledStrTable(
+		table.Interval{Start: 0, End: 0},
+		table.Align{Position: "R"},
+		table.Gap{Char: "|", Length: 3},
+		table.Mark{Lines: 2},
+	)
+
+	fmt.Printf("\n#6 PrintTitledStrTable:\n")
 	fmt.Println("  *  Interval{ Start: 1, End: 5 },")
 	fmt.Println("  *  Align{ Position: \"C\" },")
-	fmt.Println("  *  Gap{ Char: \"|\", Length: 2 }")
+	fmt.Println("  *  Gap{Char: \"|\", Length: 2 },")
+	fmt.Println("  *  Mark{Lines: 1}")
 	fmt.Println()
 	NumberMapArray2.PrintTitledStrTable(
 		table.Interval{Start: 1, End: 5},
 		table.Align{Position: "C"},
 		table.Gap{Char: "|", Length: 2},
+		table.Mark{Lines: 1},
 	)
+
 }
