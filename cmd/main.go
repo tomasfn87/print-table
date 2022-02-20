@@ -62,22 +62,26 @@ func main() {
 	fmt.Println("  *  Interval{},")
 	fmt.Println("  *  Align{},")
 	fmt.Println("  *  Gap{}")
+	fmt.Println("  *  Mark{}")
 	fmt.Println()
 	NumberMapArray.PrintStrTable(
 		table.Interval{},
 		table.Align{},
 		table.Gap{},
+		table.Mark{},
 	)
 	// #2 - passing the same values and if all fields are blank
 	fmt.Printf("\n#2 PrintStrTable: arguments cloning #1's behavior:\n")
 	fmt.Println("  *  Interval{ Start: 0, End: 0 },")
 	fmt.Println("  *  Align{ Position: \"\" },")
-	fmt.Println("  *  Gap{ Char: \"\", Length: 0 }")
+	fmt.Println("  *  Gap{ Char: \"\", Length: 0 },")
+	fmt.Println("  *  Mark{ Lines: 0}")
 	fmt.Println()
 	NumberMapArray.PrintStrTable(
 		table.Interval{Start: 0, End: 0},
 		table.Align{Position: ""},
 		table.Gap{Char: "|", Length: 0},
+		table.Mark{Lines: 0},
 	)
 	// #1 and #2 produce the same output
 
@@ -85,12 +89,14 @@ func main() {
 	fmt.Printf("\n#3 PrintStrTable: other arguments:\n")
 	fmt.Println("  *  Interval{ Start: 1, End: 8 },")
 	fmt.Println("  *  Align{ Position: \"R\" },")
-	fmt.Println("  *  Gap{ Char: \"|\", Length: 3 }")
+	fmt.Println("  *  Gap{ Char: \"|\", Length: 3 },")
+	fmt.Println("  *  Mark{ Lines: 2}")
 	fmt.Println()
 	NumberMapArray.PrintStrTable(
 		table.Interval{Start: 1, End: 8},
 		table.Align{Position: "R"},
 		table.Gap{Char: "|", Length: 3},
+		table.Mark{Lines: 2},
 	)
 	// #3 is a lil' bit different
 }
