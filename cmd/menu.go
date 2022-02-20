@@ -11,45 +11,45 @@ func Menu() {
 	number4 := 1023.69514865
 	numberMap1 := []string{
 		"hours",
-		fmt.Sprintf("%.5f", number4),
-		fmt.Sprintf("%.2f", number4),
 		fmt.Sprintf("%v", number4),
-		fmt.Sprintf("%.4f", number4),
-		fmt.Sprintf("%.6f", number4),
-		fmt.Sprintf("%.3f", number4),
-		fmt.Sprintf("%.f", number4),
 		fmt.Sprintf("%.7f", number4),
+		fmt.Sprintf("%.6f", number4),
+		fmt.Sprintf("%.5f", number4),
+		fmt.Sprintf("%.4f", number4),
+		fmt.Sprintf("%.2f", number4),
+		fmt.Sprintf("%.3f", number4),
 		fmt.Sprintf("%.1f", number4),
+		fmt.Sprintf("%.f", number4),
 	}
 	NumberMap1 := table.NewStrArr(table.StrArr{Arr: numberMap1})
 
 	number5 := 20.58120105
 	numberMap2 := []string{
 		"$/hour",
-		fmt.Sprintf("%.6f", number5),
-		fmt.Sprintf("%.2f", number5),
-		fmt.Sprintf("%.4f", number5),
-		fmt.Sprintf("%.1f", number5),
 		fmt.Sprintf("%v", number5),
-		fmt.Sprintf("%.5f", number5),
-		fmt.Sprintf("%.f", number5),
 		fmt.Sprintf("%.7f", number5),
+		fmt.Sprintf("%.6f", number5),
+		fmt.Sprintf("%.5f", number5),
+		fmt.Sprintf("%.4f", number5),
 		fmt.Sprintf("%.3f", number5),
+		fmt.Sprintf("%.2f", number5),
+		fmt.Sprintf("%.1f", number5),
+		fmt.Sprintf("%.f", number5),
 	}
 	NumberMap2 := table.NewStrArr(table.StrArr{Arr: numberMap2})
 
 	number6 := 1.14340984
 	numberMap3 := []string{
 		"interest rate",
-		fmt.Sprintf("%.6f", number6),
-		fmt.Sprintf("%.1f", number6),
 		fmt.Sprintf("%v", number6),
-		fmt.Sprintf("%.4f", number6),
-		fmt.Sprintf("%.5f", number6),
-		fmt.Sprintf("%.2f", number6),
-		fmt.Sprintf("%.3f", number6),
-		fmt.Sprintf("%.f", number6),
 		fmt.Sprintf("%.7f", number6),
+		fmt.Sprintf("%.6f", number6),
+		fmt.Sprintf("%.5f", number6),
+		fmt.Sprintf("%.4f", number6),
+		fmt.Sprintf("%.3f", number6),
+		fmt.Sprintf("%.2f", number6),
+		fmt.Sprintf("%.1f", number6),
+		fmt.Sprintf("%.f", number6),
 	}
 	NumberMap3 := table.NewStrArr(table.StrArr{Arr: numberMap3})
 
