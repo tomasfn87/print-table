@@ -123,11 +123,23 @@ func Menu() {
 	fmt.Scanf("%s", &titleInput)
 
 	fmt.Println()
+	markInput := ""
+	fmt.Println("Add a line marker every x lines or ENTER for default 0")
+	fmt.Printf("x: ")
+	fmt.Scanf("%s", &markInput)
+	mark, _ := strconv.Atoi(markInput)
+
+	if mark < 0 {
+		mark = 0
+	}
+
+	fmt.Println()
 	if titleInput == "Y" {
 		NumberMapArray.PrintTitledStrTable(
 			table.Interval{Start: intervalStart, End: intervalEnd},
 			table.Align{Position: alignInput},
 			table.Gap{Char: gapInput, Length: gapLength},
+			table.Mark{Lines: mark},
 		)
 		return
 	}
@@ -135,6 +147,7 @@ func Menu() {
 		table.Interval{Start: intervalStart, End: intervalEnd},
 		table.Align{Position: alignInput},
 		table.Gap{Char: gapInput, Length: gapLength},
+		table.Mark{Lines: mark},
 	)
 }
 
