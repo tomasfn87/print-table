@@ -5,5 +5,5 @@ Print lists and tables
 
 <h3>Test it online:</h3>
 
-* <a href="https://onlinegdb.com/QJTD572Jn">Print Table</a>
+* <a href="https://onlinegdb.com/BE2bVS2DN">Print Table</a>
 

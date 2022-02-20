@@ -92,7 +92,7 @@ func (a StrArr) getArrayLength() int {
 	return len(a.Arr)
 }
 
-func (a StrArr) PrintStrArr(i Interval, al Align) {
+func (a StrArr) PrintStrArr(al Align) {
 	margin := a.getLongestString()
 	lengths := a.getEachItemLength()
 	for k, v := range a.Arr {
