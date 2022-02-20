@@ -26,6 +26,10 @@ type Align struct {
 	Position string
 }
 
+type Mark struct {
+	Lines int
+}
+
 func NewStrArr(a StrArr) *StrArr {
 	return &StrArr{Arr: a.Arr}
 }
@@ -68,7 +72,7 @@ func getFirstNotEmptyChar(text string) string {
 
 func (a StrArr) getLongestString() int {
 	longestStrLength := 0
-	for _, v := range a.Arr[:] {
+	for _, v := range a.Arr {
 		if len(v) > longestStrLength {
 			longestStrLength = len(v)
 		}
@@ -77,15 +81,15 @@ func (a StrArr) getLongestString() int {
 }
 
 func (a StrArr) getEachItemLength() []int {
-	lengths := make([]int, len(a.Arr[:]))
-	for k, v := range a.Arr[:] {
+	lengths := make([]int, len(a.Arr))
+	for k, v := range a.Arr {
 		lengths[k] = len(v)
 	}
 	return lengths
 }
 
 func (a StrArr) getArrayLength() int {
-	return len(a.Arr[:])
+	return len(a.Arr)
 }
 
 func (a StrArr) PrintStrArr(i Interval, al Align) {
@@ -137,7 +141,7 @@ func (t StrTable) getMargins() []int {
 
 func (t StrTable) getLengths() [][]int {
 	lengthsArr := make([][]int, len(t.ArrArr))
-	for k := range lengthsArr[:] {
+	for k := range lengthsArr {
 		lengthsArr[k] = t.ArrArr[k].getEachItemLength()
 	}
 	return lengthsArr
@@ -146,10 +150,8 @@ func (t StrTable) getLengths() [][]int {
 func (t StrTable) printLine(al Align, gap string, title string, index int) {
 	marginArr := t.getMargins()
 	lengthsArr := t.getLengths()
-
 	line := ""
 	for k, v := range t.ArrArr[:] {
-		v.Arr = v.Arr[:]
 		if al.Position == "R" {
 			line +=
 				alignRight(v.Arr[index], marginArr[k]-lengthsArr[k][index])
@@ -192,17 +194,25 @@ func (t StrTable) printColumnIndicator(gap string) {
 	fmt.Println(columnIndicator)
 }
 
-func (t StrTable) printTableBody(table []StrArr, al Align, gap string) {
+func (t StrTable) printTableBody(table []StrArr, al Align, gap string, m Mark) {
 	numItems := t.ArrArr[:][0].getArrayLength()
-	for j := 0; j < numItems; j++ {
-		if j == 0 {
-			t.printColumnIndicator(gap)
+	for i := 0; i < numItems; i++ {
+		if m.Lines <= 0 {
+			if i == 0 {
+				t.printColumnIndicator(gap)
+			}
+		} else {
+			if m.Lines == 1 && i != 0 {
+				t.printColumnIndicator(gap)
+			} else if i == 0 || i == m.Lines || i > m.Lines && (i%m.Lines) == 0 {
+				t.printColumnIndicator(gap)
+			}
 		}
-		t.printLine(al, gap, "N", j)
+		t.printLine(al, gap, "N", i)
 	}
 }
 
-func (t StrTable) PrintStrTable(i Interval, al Align, g Gap) {
+func (t StrTable) PrintStrTable(i Interval, al Align, g Gap, m Mark) {
 	table := t.ArrArr[:]
 	tableLength := len(table[0].Arr)
 
@@ -215,20 +225,28 @@ func (t StrTable) PrintStrTable(i Interval, al Align, g Gap) {
 	}
 
 	gap := t.getGapBetweenColumns(g)
-	t.printTableBody(table, al, gap)
+	t.printTableBody(table, al, gap, m)
 }
 
-func (t StrTable) printTitledTableBody(table []StrArr, al Align, gap string) {
+func (t StrTable) printTitledTableBody(table []StrArr, al Align, gap string, m Mark) {
 	numItems := t.ArrArr[:][0].getArrayLength()
-	for j := 0; j < numItems; j++ {
-		if j == 1 {
-			t.printColumnIndicator(gap)
+	for i := 0; i < numItems; i++ {
+		if m.Lines <= 0 {
+			if i == 1 {
+				t.printColumnIndicator(gap)
+			}
+		} else {
+			if m.Lines == 1 && i != 0 {
+				t.printColumnIndicator(gap)
+			} else if i == 1 || i == m.Lines+1 || i > m.Lines+1 && (i%m.Lines) == 1 {
+				t.printColumnIndicator(gap)
+			}
 		}
-		t.printLine(al, gap, "Y", j)
+		t.printLine(al, gap, "Y", i)
 	}
 }
 
-func (t StrTable) PrintTitledStrTable(i Interval, al Align, g Gap) {
+func (t StrTable) PrintTitledStrTable(i Interval, al Align, g Gap, m Mark) {
 	table := t.ArrArr[:]
 	tableLength := len(table[0].Arr)
 	if i.Start == 0 {
@@ -244,5 +262,5 @@ func (t StrTable) PrintTitledStrTable(i Interval, al Align, g Gap) {
 	}
 
 	gap := t.getGapBetweenColumns(g)
-	t.printTitledTableBody(table, al, gap)
+	t.printTitledTableBody(table, al, gap, m)
 }
