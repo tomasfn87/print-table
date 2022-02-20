@@ -70,7 +70,7 @@ func getFirstNotEmptyChar(text string) string {
 	return " "
 }
 
-func (a StrArr) getLongestString() int {
+func (a StrArr) getLongestStringLength() int {
 	longestStrLength := 0
 	for _, v := range a.Arr {
 		if len(v) > longestStrLength {
@@ -93,7 +93,7 @@ func (a StrArr) getArrayLength() int {
 }
 
 func (a StrArr) PrintStrArr(al Align) {
-	margin := a.getLongestString()
+	margin := a.getLongestStringLength()
 	lengths := a.getEachItemLength()
 	for k, v := range a.Arr {
 		switch al.Position {
@@ -134,7 +134,7 @@ func (t StrTable) getGapBetweenColumns(g Gap) string {
 func (t StrTable) getMargins() []int {
 	marginArr := make([]int, len(t.ArrArr))
 	for k := range marginArr[:] {
-		marginArr[k] = t.ArrArr[k].getLongestString()
+		marginArr[k] = t.ArrArr[k].getLongestStringLength()
 	}
 	return marginArr
 }
