@@ -8,49 +8,52 @@ import (
 )
 
 func Menu() {
-	number1 := 420.69514865
+	number4 := 1023.69514865
 	numberMap1 := []string{
-		fmt.Sprintf("%.5f", number1),
-		fmt.Sprintf("%.2f", number1),
-		fmt.Sprintf("%v", number1),
-		fmt.Sprintf("%.4f", number1),
-		fmt.Sprintf("%.6f", number1),
-		fmt.Sprintf("%.3f", number1),
-		fmt.Sprintf("%.f", number1),
-		fmt.Sprintf("%.7f", number1),
-		fmt.Sprintf("%.1f", number1),
+		"hours",
+		fmt.Sprintf("%.5f", number4),
+		fmt.Sprintf("%.2f", number4),
+		fmt.Sprintf("%v", number4),
+		fmt.Sprintf("%.4f", number4),
+		fmt.Sprintf("%.6f", number4),
+		fmt.Sprintf("%.3f", number4),
+		fmt.Sprintf("%.f", number4),
+		fmt.Sprintf("%.7f", number4),
+		fmt.Sprintf("%.1f", number4),
 	}
 	NumberMap1 := table.NewStrArr(table.StrArr{Arr: numberMap1})
 
-	number2 := 1.37822145
+	number5 := 20.58120105
 	numberMap2 := []string{
-		fmt.Sprintf("%.6f", number2),
-		fmt.Sprintf("%.2f", number2),
-		fmt.Sprintf("%.4f", number2),
-		fmt.Sprintf("%.1f", number2),
-		fmt.Sprintf("%v", number2),
-		fmt.Sprintf("%.5f", number2),
-		fmt.Sprintf("%.f", number2),
-		fmt.Sprintf("%.7f", number2),
-		fmt.Sprintf("%.3f", number2),
+		"$/hour",
+		fmt.Sprintf("%.6f", number5),
+		fmt.Sprintf("%.2f", number5),
+		fmt.Sprintf("%.4f", number5),
+		fmt.Sprintf("%.1f", number5),
+		fmt.Sprintf("%v", number5),
+		fmt.Sprintf("%.5f", number5),
+		fmt.Sprintf("%.f", number5),
+		fmt.Sprintf("%.7f", number5),
+		fmt.Sprintf("%.3f", number5),
 	}
 	NumberMap2 := table.NewStrArr(table.StrArr{Arr: numberMap2})
 
-	number3 := 7.58120105
+	number6 := 1.14340984
 	numberMap3 := []string{
-		fmt.Sprintf("%.6f", number3),
-		fmt.Sprintf("%.1f", number3),
-		fmt.Sprintf("%v", number3),
-		fmt.Sprintf("%.4f", number3),
-		fmt.Sprintf("%.5f", number3),
-		fmt.Sprintf("%.2f", number3),
-		fmt.Sprintf("%.3f", number3),
-		fmt.Sprintf("%.f", number3),
-		fmt.Sprintf("%.7f", number3),
+		"interest rate",
+		fmt.Sprintf("%.6f", number6),
+		fmt.Sprintf("%.1f", number6),
+		fmt.Sprintf("%v", number6),
+		fmt.Sprintf("%.4f", number6),
+		fmt.Sprintf("%.5f", number6),
+		fmt.Sprintf("%.2f", number6),
+		fmt.Sprintf("%.3f", number6),
+		fmt.Sprintf("%.f", number6),
+		fmt.Sprintf("%.7f", number6),
 	}
 	NumberMap3 := table.NewStrArr(table.StrArr{Arr: numberMap3})
 
-	numberMapArray := table.NewStrTable(table.StrTable{
+	NumberMapArray := table.NewStrTable(table.StrTable{
 		ArrArr: []table.StrArr{
 			*NumberMap1,
 			*NumberMap2,
@@ -66,11 +69,12 @@ func Menu() {
 	fmt.Printf("Start to print from element: ")
 	fmt.Scanf("%s", &intervalStartInput)
 	intervalStart, _ := strconv.Atoi(intervalStartInput)
+	intervalStart++
 
-	if intervalStart > 8 {
-		intervalStart = 8
-	} else if intervalStart < 0 {
-		intervalStart = 0
+	if intervalStart > 9 {
+		intervalStart = 9
+	} else if intervalStart < 1 {
+		intervalStart = 1
 	}
 
 	fmt.Println()
@@ -79,13 +83,18 @@ func Menu() {
 	fmt.Printf("Finish printing at element: ")
 	fmt.Scanf("%s", &intervalEndInput)
 	intervalEnd, _ := strconv.Atoi(intervalEndInput)
+	intervalEnd++
 
-	if intervalEnd == intervalStart && intervalStart != 0 {
+	if intervalEnd == 1 && intervalEnd == intervalStart {
+		intervalEnd = 10
+	}
+
+	if intervalEnd == intervalStart {
 		intervalEnd++
 	}
 
-	if intervalEnd <= 0 || intervalEnd > 9 || intervalEnd < intervalStart {
-		intervalEnd = 9
+	if intervalEnd <= 0 || intervalEnd > 10 || intervalEnd < intervalStart {
+		intervalEnd = 10
 	}
 
 	fmt.Println()
@@ -108,7 +117,21 @@ func Menu() {
 	gapLength, _ := strconv.Atoi(gapLengthInput)
 
 	fmt.Println()
-	numberMapArray.PrintStrTable(
+	titleInput := ""
+	fmt.Println("(Y or N) {yes, no} or ENTER for N")
+	fmt.Printf("Print title: ")
+	fmt.Scanf("%s", &titleInput)
+
+	fmt.Println()
+	if titleInput == "Y" {
+		NumberMapArray.PrintTitledStrTable(
+			table.Interval{Start: intervalStart, End: intervalEnd},
+			table.Align{Position: alignInput},
+			table.Gap{Char: gapInput, Length: gapLength},
+		)
+		return
+	}
+	NumberMapArray.PrintStrTable(
 		table.Interval{Start: intervalStart, End: intervalEnd},
 		table.Align{Position: alignInput},
 		table.Gap{Char: gapInput, Length: gapLength},
