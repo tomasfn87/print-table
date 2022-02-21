@@ -119,16 +119,16 @@ func (t StrTable) printTableBody(table []StrArr, al Align, gap string, m Mark) {
 	for i := 0; i < numItems; i++ {
 		if m.Lines <= 0 {
 			if i == 0 {
-				t.printColumnIndicator(gap)
+				t.printColumnIndicator(table, gap)
 			}
 		} else {
 			if m.Lines == 1 && i != 0 {
-				t.printColumnIndicator(gap)
+				t.printColumnIndicator(table, gap)
 			} else if i == 0 || i == m.Lines || i > m.Lines && (i%m.Lines) == 0 {
-				t.printColumnIndicator(gap)
+				t.printColumnIndicator(table, gap)
 			}
 		}
-		t.printLine(al, gap, "N", i)
+		t.printLine(table, al, gap, "N", i)
 	}
 }
 
@@ -156,16 +156,16 @@ func (t StrTable) printTitledTableBody(table []StrArr, al Align, gap string, m M
 	for i := 0; i < numItems; i++ {
 		if m.Lines <= 0 {
 			if i == 1 {
-				t.printColumnIndicator(gap)
+				t.printColumnIndicator(table, gap)
 			}
 		} else {
 			if m.Lines == 1 && i != 0 {
-				t.printColumnIndicator(gap)
+				t.printColumnIndicator(table, gap)
 			} else if i == 1 || i == m.Lines+1 || i > m.Lines+1 && (i%m.Lines) == 1 {
-				t.printColumnIndicator(gap)
+				t.printColumnIndicator(table, gap)
 			}
 		}
-		t.printLine(al, gap, "Y", i)
+		t.printLine(table, al, gap, "Y", i)
 	}
 }
 
@@ -202,7 +202,7 @@ func getFirstNotEmptyChar(text string) string {
 	return " "
 }
 
-func (t StrTable) printColumnIndicator(gap string) {
+func (t StrTable) printColumnIndicator(table []StrArr, gap string) {
 	columnIndicator := ""
 	betweenColumns := ""
 	switch len(gap) {
@@ -217,9 +217,9 @@ func (t StrTable) printColumnIndicator(gap string) {
 	case 3:
 		betweenColumns += "-+-"
 	}
-	marginArr := t.getMargins()
-	for k := range marginArr {
-		columnIndicator += fmt.Sprint(fillWithTimes("-", marginArr[k]))
+	marginsArr := t.getMargins(table)
+	for k := range marginsArr {
+		columnIndicator += fmt.Sprint(fillWithTimes("-", marginsArr[k]))
 		if k != len(t.ArrArr)-1 {
 			columnIndicator += betweenColumns
 		}
@@ -227,20 +227,20 @@ func (t StrTable) printColumnIndicator(gap string) {
 	fmt.Println(columnIndicator)
 }
 
-func (t StrTable) printLine(al Align, gap string, title string, index int) {
-	marginArr := t.getMargins()
-	lengthsArr := t.getLengths()
+func (t StrTable) printLine(table []StrArr, al Align, gap string, title string, index int) {
+	marginsArr := t.getMargins(table)
+	lengthsArr := t.getLengths(table)
 	line := ""
-	for k, v := range t.ArrArr[:] {
+	for k, v := range table {
 		if al.Position == "R" {
 			line +=
-				alignRight(v.Arr[index], marginArr[k]-lengthsArr[k][index])
+				alignRight(v.Arr[index], marginsArr[k]-lengthsArr[k][index])
 		} else if al.Position == "C" {
 			line +=
-				alignCenter(v.Arr[index], marginArr[k]-lengthsArr[k][index])
+				alignCenter(v.Arr[index], marginsArr[k]-lengthsArr[k][index])
 		} else {
 			line +=
-				alignLeft(v.Arr[index], marginArr[k]-lengthsArr[k][index])
+				alignLeft(v.Arr[index], marginsArr[k]-lengthsArr[k][index])
 		}
 		if k != len(t.ArrArr)-1 {
 			line += gap
@@ -249,18 +249,18 @@ func (t StrTable) printLine(al Align, gap string, title string, index int) {
 	fmt.Println(line)
 }
 
-func (t StrTable) getMargins() []int {
-	marginArr := make([]int, len(t.ArrArr))
-	for k := range marginArr[:] {
-		marginArr[k] = t.ArrArr[k].getLongestString()
+func (t StrTable) getMargins(table []StrArr) []int {
+	marginsArr := make([]int, len(t.ArrArr))
+	for k := range table {
+		marginsArr[k] = table[k].getLongestString()
 	}
-	return marginArr
+	return marginsArr
 }
 
-func (t StrTable) getLengths() [][]int {
-	lengthsArr := make([][]int, len(t.ArrArr))
+func (t StrTable) getLengths(table []StrArr) [][]int {
+	lengthsArr := make([][]int, len(table))
 	for k := range lengthsArr {
-		lengthsArr[k] = t.ArrArr[k].getEachItemLength()
+		lengthsArr[k] = table[k].getEachItemLength()
 	}
 	return lengthsArr
 }
