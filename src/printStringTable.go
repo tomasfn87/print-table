@@ -115,7 +115,7 @@ func (t StrTable) PrintStrTable(i Interval, al Align, g Gap, m Mark) {
 }
 
 func (t StrTable) printTableBody(table []StrArr, al Align, gap string, m Mark) {
-	numItems := t.ArrArr[:][0].getArrayLength()
+	numItems := table[0].getArrayLength()
 	for i := 0; i < numItems; i++ {
 		if m.Lines <= 0 {
 			if i == 0 {
@@ -152,7 +152,7 @@ func (t StrTable) PrintTitledStrTable(i Interval, al Align, g Gap, m Mark) {
 }
 
 func (t StrTable) printTitledTableBody(table []StrArr, al Align, gap string, m Mark) {
-	numItems := t.ArrArr[:][0].getArrayLength()
+	numItems := table[0].getArrayLength()
 	for i := 0; i < numItems; i++ {
 		if m.Lines <= 0 {
 			if i == 1 {
