@@ -74,7 +74,7 @@ func main() {
 	fmt.Printf("\n#2 PrintStrTable: arguments cloning #1's behavior:\n")
 	fmt.Println("  *  Interval{ Start: 0, End: 0 },")
 	fmt.Println("  *  Align{ Position: \"\" },")
-	fmt.Println("  *  Gap{ Char: \"\", Length: 0 },")
+	fmt.Println("  *  Gap{ Char: \"\", Length: 0 }")
 	fmt.Println("  *  Mark{ Lines: 0}")
 	fmt.Println()
 	NumberMapArray.PrintStrTable(

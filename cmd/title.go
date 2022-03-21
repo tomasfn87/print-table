@@ -76,7 +76,7 @@ func main() {
 	fmt.Printf("\n#5 PrintTitledStrTable:\n")
 	fmt.Println("  *  Interval{Start: 0, End: 0},")
 	fmt.Println("  *  Align{ Position: \"R\" },")
-	fmt.Println("  *  Gap{Char: \"|\", Length: 3 },")
+	fmt.Println("  *  Gap{Char: \"|\", Length: 3 }")
 	fmt.Println("  *  Mark{Lines: 2}")
 	fmt.Println()
 	NumberMapArray2.PrintTitledStrTable(
