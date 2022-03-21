@@ -2,6 +2,7 @@ package table
 
 import (
 	"fmt"
+	"strings"
 )
 
 type StrArr struct {
@@ -39,11 +40,7 @@ func NewStrTable(t StrTable) *StrTable {
 }
 
 func fillWithTimes(char string, size int) string {
-	fill := ""
-	for i := 0; i < size; i++ {
-		fill += fmt.Sprintf("%c", char[0])
-	}
-	return fill
+	return strings.Repeat(fmt.Sprintf("%c", char[0]), size)
 }
 
 func alignRight(text string, size int) string {
