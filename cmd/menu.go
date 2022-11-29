@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"strconv"
+	"strings"
 
 	table "code.repo/table/src"
 )
@@ -102,6 +103,7 @@ func Menu() {
 	fmt.Println("(R or C) {right, center} or ENTER for default Left alignment")
 	fmt.Printf("Alignment: ")
 	fmt.Scanf("%s", &alignInput)
+	alignInput = strings.ToUpper(alignInput)
 
 	fmt.Println()
 	gapInput := ""
@@ -134,7 +136,7 @@ func Menu() {
 	}
 
 	fmt.Println()
-	if titleInput == "Y" {
+	if strings.ToUpper(titleInput) == "Y" {
 		NumberMapArray.PrintTitledStrTable(
 			table.Interval{Start: intervalStart, End: intervalEnd},
 			table.Align{Position: alignInput},
