@@ -16,8 +16,8 @@ func Menu() {
 		fmt.Sprintf("%.6f", number4),
 		fmt.Sprintf("%.5f", number4),
 		fmt.Sprintf("%.4f", number4),
-		fmt.Sprintf("%.2f", number4),
 		fmt.Sprintf("%.3f", number4),
+		fmt.Sprintf("%.2f", number4),
 		fmt.Sprintf("%.1f", number4),
 		fmt.Sprintf("%.f", number4),
 	}
