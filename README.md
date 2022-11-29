@@ -1,13 +1,9 @@
 # print-table
+
 Print lists and tables.
 
 * Supports tables with titles
 
-<h3>Test it online:</h3>
+### Test it online:
 
-* <a href="https://bit.ly/3U9sfMM">Print Table</a>
-
-
-
-
-
+[Print Table](http://bit.ly/3OQX7zK)
